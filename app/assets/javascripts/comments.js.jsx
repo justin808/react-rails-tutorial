@@ -6,11 +6,15 @@ var Comment = React.createClass({
   render: function() {
     var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      <div className="comment panel panel-default">
+        <div className="panel-heading">
+          <h3 className="panel-title">
+            {this.props.author}
+          </h3>
+        </div>
+        <div className="panel-body">
+          <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+        </div>
       </div>
     );
   }
@@ -103,11 +107,22 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="author" />
-        <input type="text" placeholder="Say something..." ref="text" />
-        <input type="submit" value="Post" />
-      </form>
+      <div className="panel panel-default">
+        <div className="panel-heading">Add a Note</div>
+        <div className="panel-body">
+          <form className="commentForm " onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label className="control-label" forName="authorInput">Author</label>
+              <input type="text" id="authorInput" className="form-control" placeholder="Your name" ref="author" />
+            </div>
+            <div className="form-group">
+              <label className="control-label" forName="commentInput">Comment</label>
+              <textarea className="form-control" id="commentInput" rows="3" placeholder="Say something..." ref="text" />
+            </div>
+            <input type="submit" className="btn btn-primary" value="Post" />
+          </form>
+        </div>
+      </div>
     );
   }
 });
