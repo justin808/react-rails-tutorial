@@ -90,8 +90,8 @@ var CommentBox = React.createClass({
           <NavItem key={1}>Stacked Form</NavItem>
           <NavItem key={2}>Inline Form</NavItem>
         </Nav>
-        <CommentList data={this.state.data} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} formData={this.state.formData} formMode={this.state.formMode} onChange={this.onFormChange} ajaxSending={this.state.ajaxSending} />
+        <CommentList data={this.state.data} />
       </div>
     );
   }
@@ -99,7 +99,8 @@ var CommentBox = React.createClass({
 
 var CommentList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function(comment, index) {
+    var reversedData = this.props.data.slice(0).reverse();
+    var commentNodes = reversedData.map(function(comment, index) {
       return (
         // `key` is a React-specific concept and is not mandatory for the
         // purpose of this tutorial. if you're curious, see more here:
