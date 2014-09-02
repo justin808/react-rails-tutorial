@@ -13,6 +13,7 @@
     "marked": "^0.3.2"
   },
   "devDependencies": {
+    "loader-utils": "^0.2.3",
     "css-loader": "^0.7.1",
     "es6-loader": "^0.2.0",
     "extract-text-webpack-plugin": "^0.2.5",
