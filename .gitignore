@@ -16,3 +16,5 @@
 /tmp
 /public/assets
 node_modules
+rails-bundle.js
+rails-bundle.js.map
