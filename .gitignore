@@ -18,3 +18,4 @@
 node_modules
 rails-bundle.js
 rails-bundle.js.map
+.env
