@@ -1,8 +1,11 @@
 // Run like this
-// webpack -d --config webpack-rails.config.js && cp railsbuild/rails-bundle.js /Users/justin/j/react/react-rails-tutorial/app/assets/javascripts && cp railsbuild/rails-bundle.js.map /Users/justin/j/react/react-rails-tutorial/public
+// cd webpack && webpack -w --config webpack.rails.config.js
+
+var devtool = (((typeof process.env["BUILDPACK_URL"]) == "undefined") ? "source-map" : "");
+console.log("Webpack build for rails: devtool = " + devtool);
 
 module.exports = {
-  devtool: "source-map",
+  devtool: devtool,
   context: __dirname,
   entry: [
     // In case we don't require jQuery from CDN or asset pipeline
