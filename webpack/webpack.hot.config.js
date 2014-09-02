@@ -1,5 +1,6 @@
 console.log("__dirname is " + __dirname);
 var webpack = require("webpack");
+var path = require("path");
 module.exports = {
   devtool: "source-map",
 
@@ -37,7 +38,9 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx$/, loaders: ["react-hot", "es6", "jsx?harmony"] },
-      { test: /\.css$/, loader: "style-loader!css-loader" }
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.scss$/, // loader: "style!css!sass?outputStyle=expanded" }
+        loader: "style!css!sass?outputStyle=expanded"}
     ]
   }
 };
