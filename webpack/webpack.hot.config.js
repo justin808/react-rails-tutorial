@@ -1,3 +1,4 @@
+console.log("__dirname is " + __dirname);
 var webpack = require("webpack");
 module.exports = {
   devtool: "source-map",
@@ -25,12 +26,12 @@ module.exports = {
     jquery: "var jQuery"
   },
   resolve: {
-    root: [__dirname + "/node_modules", __dirname + "/scripts",
-           __dirname + "/../app/assets/javascripts", __dirname + "/../app/assets/stylesheets" ],
+    root: [ __dirname + "/scripts", __dirname + "/../app/assets/javascripts",
+            __dirname + "/../app/assets/stylesheets" ],
     extensions: ["", ".js", ".jsx"]
   },
   resolveLoader: {
-    root: [__dirname + "/node_modules", __dirname + "/../app/assets/javascripts"],
+    root: [ __dirname + "/../app/assets/javascripts"],
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
   },
   module: {

@@ -18,12 +18,11 @@ module.exports = {
     jquery: "var jQuery"
   },
   resolve: {
-    root: [__dirname + "/node_modules", __dirname + "/scripts",
-      __dirname + "/../app/assets/javascripts"],
+    root: [ __dirname + "/scripts", __dirname + "/../app/assets/javascripts" ],
     extensions: ["", ".js", ".jsx"]
   },
   resolveLoader: {
-    root: [__dirname + "/node_modules", __dirname + "/../app/assets/javascripts"],
+    root: [ __dirname + "/../app/assets/javascripts" ],
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
   },
   module: {
