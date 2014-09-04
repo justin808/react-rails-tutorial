@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+require("expose?$!jquery");
+require("expose?jQuery!jquery");
 
-window.jQuery = require('jquery');
-window.$ = jQuery;
+
