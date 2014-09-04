@@ -2,6 +2,12 @@
 
 module $ from 'jquery';
 module React from 'react/addons';
+
+// Next line is necessary for exposing React to browser for
+// the React Developer Tools: http://facebook.github.io/react/blog/2014/01/02/react-chrome-developer-tools.html
+// require("expose?React!react");
+
+
 var Input = require('react-bootstrap/Input');
 var Button = require('react-bootstrap/Button');
 var Row = require('react-bootstrap/Row');
@@ -44,7 +50,7 @@ var CommentBox = React.createClass({
     // `we'll send the ajax request right after we optimistically set the new
     // `state.
     this.setState({ajaxSending: true});
-    comment = this.state.formData;
+    var comment = this.state.formData;
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -64,7 +70,6 @@ var CommentBox = React.createClass({
   getInitialState: function() {
     return {
       data: [],
-      formMode: 0,
       formData: this.emptyFormData,
       ajaxSending: false
     };
@@ -73,9 +78,7 @@ var CommentBox = React.createClass({
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
-  handleSelect: function(selectedKey) {
-    this.setState({ formMode: selectedKey });
-  },
+
   onFormChange: function(obj) {
     this.setState({
       formData: obj
@@ -85,12 +88,7 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox container">
         <h1>Comments { this.state.ajaxSending ? "AJAX SENDING!" : "" }</h1>
-        <Nav bsStyle="pills" activeKey={this.state.formMode} onSelect={this.handleSelect}>
-          <NavItem key={0}>Horizontal Form</NavItem>
-          <NavItem key={1}>Stacked Form</NavItem>
-          <NavItem key={2}>Inline Form</NavItem>
-        </Nav>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} formData={this.state.formData} formMode={this.state.formMode} onChange={this.onFormChange} ajaxSending={this.state.ajaxSending} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} formData={this.state.formData} onChange={this.onFormChange} ajaxSending={this.state.ajaxSending} />
         <CommentList data={this.state.data} />
       </div>
     );
@@ -119,10 +117,17 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
-  handleSubmit: function(e) {
+  getInitialState: function() {
+    return {
+      formMode: 0,
+    };
+  },  handleSubmit: function(e) {
     e.preventDefault();
     this.props.onCommentSubmit();
     return;
+  },
+  handleSelect: function(selectedKey) {
+   this.setState({ formMode: selectedKey });
   },
   handleChange: function() {
     // This could also be done using ReactLink:
@@ -182,13 +187,30 @@ var CommentForm = React.createClass({
       );
   },
   render: function() {
-    if (this.props.formMode == 0) {
-        return this.formHorizontal();
-    } else if (this.props.formMode == 1) {
-        return this.formStacked();
-    } else {
-        return this.formInline();
+     var stylePicker = (
+        <Nav bsStyle="pills" activeKey={this.state.formMode} onSelect={this.handleSelect}>
+          <NavItem key={0}>Horizontal Form</NavItem>
+          <NavItem key={1}>Stacked Form</NavItem>
+          <NavItem key={2}>Inline Form</NavItem>
+        </Nav>
+     );
+    var inputForm;
+    switch (this.state.formMode) {
+       case 0:
+         inputForm = this.formHorizontal();
+         break;
+       case 1:
+         inputForm = this.formStacked();
+         break;
+       case 2:
+         inputForm = this.formInline();
     }
+    return (
+      <div>
+        {stylePicker}
+        {inputForm}
+      </div>
+    );
   }
 });
 
