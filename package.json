@@ -16,6 +16,7 @@
     "marked": "^0.3.2"
   },
   "devDependencies": {
+    "expose-loader": "^0.5.3",
     "path": "^0.4.9",
     "loader-utils": "^0.2.3",
     "sass-loader": "^0.2.0",
