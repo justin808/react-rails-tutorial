@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require jquery
-//= require rails-bundle
 //= require jquery_ujs
+
+// Important to import jquery_ujs before rails-bundle as that patches jquery xhr to use the authenticity token!
+
+//= require rails-bundle
 //= require turbolinks
 //= require bootstrap-sprockets
