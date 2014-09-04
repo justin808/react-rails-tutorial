@@ -14,7 +14,10 @@ module.exports = {
   ],
   output: {
     filename: "rails-bundle.js",
-    path: __dirname + "/../app/assets/javascripts"
+    path: __dirname + "/../app/assets/javascripts",
+    sourceMapFilename: "../../../public/assets/[file].map"
+    // Full path does not work
+    // sourceMapFilename: __dirname + "/../public/assets/[file].map"
   },
   // Let's load jQuery from the CDN or rails asset pipeline
   externals: {
