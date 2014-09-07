@@ -33,8 +33,17 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx$/,
-        loaders: ['es6', 'jsx?harmony'] }
+      { test: /\.jsx$/, loaders: ['es6', 'jsx?harmony'] }
     ]
   }
 };
+
+var devBuild = (typeof process.env["BUILDPACK_URL"]) === "undefined";
+if (devBuild) {
+  console.log("Webpack dev build for rails");
+  module.exports.devtool = "source-map";
+  module.exports.module.loaders.push(
+    { test: require.resolve("react"), loader: "expose?React" }
+  );
+}
+

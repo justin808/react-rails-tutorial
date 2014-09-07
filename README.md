@@ -46,6 +46,23 @@ cd webpack
 webpack -w --config webpack.rails.config.js
 ```
 
+# Source Maps
+
+
+The webpack rails watcher puts the sourcemap next to the bunddle. You have to
+manually move that to public/assets. Then, in chrome debugger, look under:
+
+Sources
+  webpack
+   ..
+     app/assets
+       javascripts
+
+
+And then you can put breakpoints in the sourcemaps.
+
+
+
 # Deploying to Heroku
 In order to deploy to heroku, you'll need run this command to set a custom
 buildpack:
