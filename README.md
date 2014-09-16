@@ -30,11 +30,10 @@ rails s -p 4000
 ```
 Point browser to http://0.0.0.0:4000.
 
-It's important to not run the rails server on the same port as the node server.
+It's important to run the rails server on different port than the node server.
 
 Change a JSX file and see it update right after you hit save in the browser. Any
 data on the screen will still be there.
-
 
 
 ## Automatically Building the rails-bundle.js
@@ -47,21 +46,7 @@ webpack -w --config webpack.rails.config.js
 ```
 
 # Source Maps
-
-
-The webpack rails watcher puts the sourcemap next to the bunddle. You have to
-manually move that to public/assets. Then, in chrome debugger, look under:
-
-Sources
-  webpack
-   ..
-     app/assets
-       javascripts
-
-
-And then you can put breakpoints in the sourcemaps.
-
-
+They work for both Rails and the Webpack Server.
 
 # Deploying to Heroku
 In order to deploy to heroku, you'll need run this command to set a custom
@@ -73,7 +58,6 @@ heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-mult
 
 This runs the two buildpacks in the `.buildpacks` directory.
 
-
-
 # TO DO
-1. Integrate sass build and twitter bootstrap assets into webpack build
+1. Integrate twitter bootstrap assets into webpack build
+2. Test out image handling for stylesheets

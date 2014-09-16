@@ -1,41 +1,42 @@
 // Run like this
 // cd webpack && webpack -w --config webpack.rails.config.js
 
-var devtool = (((typeof process.env["BUILDPACK_URL"]) == "undefined") ? "source-map" : "");
-console.log("Webpack build for rails: devtool = " + devtool);
+var path = require("path");
+var railsBundleFile = "rails-bundle.js";
+var railsJsAssetsDir = "../app/assets/javascripts";
+var railsBundleMapFile = railsBundleFile + ".map";
+var railsBundleMapRelativePath = "../../../public/assets/" + railsBundleMapFile;
 
 module.exports = {
-  devtool: devtool,
   context: __dirname,
   entry: [
     // In case we don't require jQuery from CDN or asset pipeline
-    "../app/assets/javascripts/example",
-    "./scripts/rails_shims"
+    "./scripts/rails_shims",
+    "./assets/javascripts/example"
   ],
   output: {
-    filename: "rails-bundle.js",
-    path: __dirname + "/../app/assets/javascripts",
-    sourceMapFilename: "../../../public/assets/[file].map"
-    // Full path does not work
-    // sourceMapFilename: __dirname + "/../public/assets/[file].map"
+    filename: railsBundleFile,
+    path: railsJsAssetsDir
   },
   // Let's load jQuery from the CDN or rails asset pipeline
   externals: {
     jquery: "var jQuery"
   },
   resolve: {
-    root: [ __dirname + "/scripts", __dirname + "/../app/assets/javascripts" ],
+    root: [ path.join(__dirname, "scripts"), path.join(__dirname, "assets/javascripts")],
     extensions: ["", ".js", ".jsx"]
   },
   resolveLoader: {
-    root: [ __dirname + "/../app/assets/javascripts" ],
+    // todo -- see if this is necessary
+    root: [path.join(__dirname, "scripts"), path.join(__dirname, "assets/javascripts")],
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
   },
   module: {
     loaders: [
-      { test: /\.jsx$/, loaders: ['es6', 'jsx?harmony'] }
+      { test: /\.jsx$/,
+        loaders: ['es6', 'jsx?harmony'] }
     ]
-  }
+  },
 };
 
 var devBuild = (typeof process.env["BUILDPACK_URL"]) === "undefined";
@@ -45,5 +46,18 @@ if (devBuild) {
   module.exports.module.loaders.push(
     { test: require.resolve("react"), loader: "expose?React" }
   );
+  module.exports.plugins = [
+    function () {
+      this.plugin("emit", function (compilation, callback) {
+        // CRITICAL: This must be a relative path from the railsJsAssetsDir (where gen file goes)
+        var asset = compilation.assets[railsBundleMapFile];
+        compilation.assets[railsBundleMapRelativePath] = asset;
+        delete compilation.assets[railsBundleMapFile];
+        callback();
+      });
+    }
+  ];
+} else {
+  console.log("Webpack production build for rails");
 }
 

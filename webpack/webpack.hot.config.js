@@ -11,7 +11,7 @@ module.exports = {
     // In case we don't require jQuery from CDN or asset pipeline, next file will export jQuery globally
     // "./scripts/rails_shims",
     "./scripts/webpack_shims",
-    "../app/assets/javascripts/example"
+    "./assets/javascripts/example"
   ],
   // Note, this file is not actually saved, but used by the express server
   output: {
@@ -27,12 +27,12 @@ module.exports = {
     jquery: "var jQuery"
   },
   resolve: {
-    root: [ __dirname + "/scripts", __dirname + "/../app/assets/javascripts",
-            __dirname + "/../app/assets/stylesheets" ],
-    extensions: ["", ".js", ".jsx"]
+    root: [ path.join(__dirname, "scripts"), path.join(__dirname, "assets/javascripts"),
+            path.join(__dirname, "assets/stylesheets") ],
+    extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".scss", ".css", "config.js"]
   },
   resolveLoader: {
-    root: [ __dirname + "/../app/assets/javascripts"],
+    root: [ __dirname + "./assets/javascripts"],
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
   },
   module: {
