@@ -8,9 +8,7 @@ module.exports = {
   entry: [
     "webpack-dev-server/client?http://localhost:3000",
     "webpack/hot/dev-server",
-    // In case we don't require jQuery from CDN or asset pipeline, next file will export jQuery globally
-    // "./scripts/rails_shims",
-    "./scripts/webpack_shims",
+    "./scripts/webpack_only",
     "./assets/javascripts/example"
   ],
   // Note, this file is not actually saved, but used by the express server

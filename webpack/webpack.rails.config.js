@@ -11,7 +11,7 @@ module.exports = {
   context: __dirname,
   entry: [
     // In case we don't require jQuery from CDN or asset pipeline
-    "./scripts/rails_shims",
+    "./scripts/rails_only",
     "./assets/javascripts/example"
   ],
   output: {
