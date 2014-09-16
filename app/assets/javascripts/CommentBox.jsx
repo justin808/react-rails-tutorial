@@ -187,13 +187,6 @@ var CommentForm = React.createClass({
       );
   },
   render: function() {
-     var stylePicker = (
-        <Nav bsStyle="pills" activeKey={this.state.formMode} onSelect={this.handleSelect}>
-          <NavItem key={0}>Horizontal Form</NavItem>
-          <NavItem key={1}>Stacked Form</NavItem>
-          <NavItem key={2}>Inline Form</NavItem>
-        </Nav>
-     );
     var inputForm;
     switch (this.state.formMode) {
        case 0:
@@ -207,7 +200,11 @@ var CommentForm = React.createClass({
     }
     return (
       <div>
-        {stylePicker}
+        <Nav bsStyle="pills" activeKey={this.state.formMode} onSelect={this.handleSelect}>
+          <NavItem key={0}>Horizontal Form</NavItem>
+          <NavItem key={1}>Stacked Form</NavItem>
+          <NavItem key={2}>Inline Form</NavItem>
+        </Nav>
         {inputForm}
       </div>
     );
