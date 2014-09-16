@@ -8,7 +8,10 @@ var $ = require('jquery');
 var render = function() {
   if ($("#content").length > 0) {
     React.renderComponent(
-      <CommentBox url="comments.json" pollInterval={2000} />,
+      <div>
+        <CommentBox url="comments.json" pollInterval={2000} />
+        <div className="twitter-image container"/>
+      </div>,
       document.getElementById('content')
     );
   }

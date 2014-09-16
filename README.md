@@ -1,6 +1,9 @@
 # React, React-Bootstrap, and ES-6 on Rails via WebPack
 
-Example of the following technologies:
+Example of the following technologies.
+
+See article: <PENDING>
+
 
 ## Technology
 
@@ -44,6 +47,26 @@ javascript directory whenever your jsx files change.
 cd webpack
 webpack -w --config webpack.rails.config.js
 ```
+# Webpack
+`webpack.hot.config.js`: Used by server.js to run the demo server.
+`webpack.rails.config.js`: Used to generate the rails-bundle.js file
+
+# Javascript
+The `webpack.rails.config.js` file generates rails-bundle.js which is included
+by the Rails asset pipeline.
+
+# Sass and images
+1. The Webpack server loads the images from the **symlink** of of the
+   app/assets/images directory.
+2. Since the images are not moved, Rails loads images via the normal asset
+   pipeline features.
+3. The `image-url` sass helper takes care of mapping the correct directories for
+   images. The image directory for the webpack server is configured by this
+   line:
+
+    { test: /\.scss$/, loader: "style!css!sass?outputStyle=expanded&imagePath=/assets/images"}
+
+
 
 # Source Maps
 They work for both Rails and the Webpack Server.
@@ -60,4 +83,3 @@ This runs the two buildpacks in the `.buildpacks` directory.
 
 # TO DO
 1. Integrate twitter bootstrap assets into webpack build
-2. Test out image handling for stylesheets
