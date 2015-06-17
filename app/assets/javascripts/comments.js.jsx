@@ -1,10 +1,8 @@
 /** @jsx React.DOM */
 
-var converter = new Showdown.converter();
-
 var Comment = React.createClass({
   render: function() {
-    var rawMarkup = converter.makeHtml(this.props.children.toString());
+    var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
     return (
       <div className="comment panel panel-default">
         <div className="panel-heading">
